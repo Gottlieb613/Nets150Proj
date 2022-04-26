@@ -4,6 +4,11 @@ public class Test {
         test = s;
     }
 
+    public Test(String s, int n) {
+        test = s;
+        System.out.println("Hey also here a number: " + n);
+    }
+
     public void testPrint(){
         System.out.println(test);
     }

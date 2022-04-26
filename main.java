@@ -3,5 +3,8 @@ public class main {
         System.out.println("Hello hello");
         Test n1 = new Test("This code needs to be printed");
         n1.testPrint();
+        
+        Test n2 = new Test("Print", 14);
+        n2.testPrint();
     }
 }
