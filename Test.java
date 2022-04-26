@@ -3,6 +3,7 @@ public class Test {
         System.out.println("Testing for NETS150 project!");
         System.out.println("Test #0");
         System.out.println("CHANGED BY ETHAN!");
+        System.out.println("Let's hope this works!");
 
     }
 }
