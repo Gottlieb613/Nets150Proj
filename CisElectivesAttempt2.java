@@ -14,16 +14,21 @@ public class CisElectivesAttempt2 {
 
     private String url;
     private Document currentDoc;
-    private List<String>electives;
+    private List<String>electivesDescriptions;
+    private List<String> electives;
 
     /**
      * Constructor for CisElectives
+     * Automatically calls fillElectiveList() method
+     * Assumes the cis url
      */
     public CisElectivesAttempt2(){
         url = "https://advising.cis.upenn.edu/tech-electives/";
+        electivesDescriptions = new LinkedList<>();
         electives = new LinkedList<>();
         try {
             this.currentDoc = Jsoup.connect(this.url).get();
+            fillElectiveList();
         } catch (IOException e) {
             System.out.println("URL connection failed, given url = " + url);
         }
@@ -35,7 +40,9 @@ public class CisElectivesAttempt2 {
             Elements contentForElectives = electiveDocument.getElementsByTag("td");
             Pattern yesPattern = Pattern.compile("<td bgcolor=\"green\">YES</td>");
             Pattern coursePattern = Pattern.compile("<span class=\"tooltip\">(.*)<span.*</span></span>");
+            Pattern courseDescription = Pattern.compile("</span> (.*?)<br> ", Pattern.CASE_INSENSITIVE);
 
+            int index = 0;
             for (int i = 0; i < contentForElectives.size(); i++) {
                 Element tdCurrent = contentForElectives.get(i);
                 Matcher checkYes = yesPattern.matcher(tdCurrent.toString());
@@ -43,33 +50,40 @@ public class CisElectivesAttempt2 {
                     Element tdCourses = contentForElectives.get(i + 1);
                     Elements spans = tdCourses.select("span");
 
+                    //this matches for the course name inside the td tag.
+                    //course name is not inside the span tag
+                    Matcher check1 = courseDescription.matcher(tdCourses.toString());
+                    while (check1.find()){
+                        electivesDescriptions.add(check1.group(1));
+                    }
+
                     //this loop gets only the <span> elements with a course code
-                    // and extracts the code itself.
-                    // the problem is, the course Description is always outside of the <span>
-                    // and doesn't even seem to be in any type of element!
-                    // so at this point idk how to retrieve it
+                    // and extracts the code itself
+                    //it also fills the electives list with course codes and names
                     for (Element span : spans) {
                         Matcher getCourseCode = coursePattern.matcher(span.toString());
                         if (getCourseCode.find()) {
                             String courseCode = getCourseCode.group(1);
-                            System.out.println(courseCode);
-
+                            electives.add(courseCode+"-"+electivesDescriptions.get(index));
+                            index++;
+                            //System.out.println(courseCode + " " + electivesDescriptions.get(index));
                         }
                     }
 
-                }
+                }//end big if statement
             }
-
-            //System.out.println(contentForElectives);
-            System.out.println("2- " + contentForElectives.get(2).text());
-            System.out.println("3- " + contentForElectives.get(3).text().equals("NO"));
-            System.out.println("4- " + contentForElectives.get(4).select("td > span.tooltip").text());
 
         } catch (IOException e){
             System.out.println("Something went wrong extracting electives from url");
         }
     }
 
-
+    public void printElectiveList(){
+        int i=1;
+        for (String e: electives){
+            System.out.println(i + ": " + e);
+            i++;
+        }
+    }
 
 }
