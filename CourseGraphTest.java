@@ -5,5 +5,7 @@ public class CourseGraphTest {
 
         CisElectivesAttempt2 c = new CisElectivesAttempt2();
         c.printElectiveList();
+
+        System.out.println(c.coursesInDept("CIS"));
     }
 }
