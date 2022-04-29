@@ -36,7 +36,7 @@ public class CisElectivesAttempt2 {
         }
     }
 
-    public void fillElectiveList(){
+    private void fillElectiveList(){
         try{
             Document electiveDocument = Jsoup.connect(url).get();
             Elements contentForElectives = electiveDocument.getElementsByTag("td");
@@ -81,7 +81,6 @@ public class CisElectivesAttempt2 {
 
                             electives.add(courseCode+"-"+electivesDescriptions.get(index));
 
-
                             Course elec = new Course(courseCode, electivesDescriptions.get(index));
                             if (elecMap.containsKey(department)) {
                                 elecMap.get(department).add(elec);
@@ -89,7 +88,6 @@ public class CisElectivesAttempt2 {
                                 elecMap.put(department, new ArrayList<>());
                                 elecMap.get(department).add(elec);
                             }
-
 
                             index++;
                             //System.out.println(courseCode + " " + electivesDescriptions.get(index));
