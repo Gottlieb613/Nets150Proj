@@ -145,4 +145,26 @@ public class CourseInfo {
         System.out.println("Course not found");
         return null;
     }
+
+    //Instead of getting the course title manually from every page which is pain, as we already spent too much time
+    //doing that before. This method can easily just return the subject Title for any valid subject code
+    public static String getSubjectTitle(String courseCode){
+        Document doc ;
+        String url = "https://catalog.upenn.edu/courses/" + courseCode.toLowerCase();
+        String courseTitle = "";
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            System.out.println("URL connection failed, given url = " + url);
+            return null;
+        }
+        Pattern yesCourseTitle = Pattern.compile("^(.*?)\\s\\(");
+        String temp = doc.getElementsByClass("page-title").text();
+        Matcher check = yesCourseTitle.matcher(temp);
+        if (check.find()){
+            courseTitle = check.group(1);
+        }
+        //System.out.println(courseTitle);
+        return courseTitle;
+    }
 }
