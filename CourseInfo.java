@@ -113,8 +113,6 @@ public class CourseInfo {
                             c.addDescription(description);
                         }
 
-                        //TODO: idk why this doesnt work
-                        // considering it's the same code as above
                         //adding PREREQS to c Course object
                         Pattern prereqElement = Pattern.compile(
                                 "<p class=\"courseblockextra noindent\">Prerequisite.*");
