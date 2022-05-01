@@ -79,7 +79,17 @@ public class CourseInfo {
         return coursesMap;
     }
 
-    public static Course getCourseObj(String subjCode, String courseID) {
+    public static Course getCourseObj(String courseID) {
+        courseID = courseID.toUpperCase();
+        //First, check that it is in the form [AAA 000]
+        Pattern validCourse = Pattern.compile("(\\w+) \\d+");
+        Matcher validCourseMatch = validCourse.matcher(courseID);
+        if (!validCourseMatch.find()) {
+            System.out.println("Invalid course ID");
+            return null;
+        }
+        String subjCode = validCourseMatch.group(1);
+
         Document subjDoc;
         String url = "https://catalog.upenn.edu/courses/" + subjCode.toLowerCase();
         Course c;
@@ -112,6 +122,11 @@ public class CourseInfo {
                         String title = selectIdAndTitle.group(3);
                         c = new Course(id, title);
 
+                        //TODO: fix bug where if some HTML stuff is in the description
+                        // then the description looks all weird. Example: CHEM 242
+                        // I could probably fix it by using Element.text() instead of .toString()
+                        // but that would require reworking the below code
+                        // so i'll get to it later
                         //adding DESCRIPTION to c Course object
                         Pattern getDescr = Pattern.compile(".*courseblockextra noindent\">(.*)</p>.*");
                         Matcher matchDescr = getDescr.matcher(pElems.get(1).toString());
