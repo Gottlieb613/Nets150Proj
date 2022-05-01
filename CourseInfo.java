@@ -26,12 +26,15 @@ public class CourseInfo {
 
         Elements divElems = subjDoc.select("div");
         for (Element div : divElems) {
+            //the boolean below is because for some reason other div tags
+            // were matching, even though they DIDNT start with <div class="courseblock"
+            // I have no idea why the regex would allow that but whatever
+            boolean classOnly = div.toString().charAt(12) == 'c';
             Matcher isInfo = getCourseInfo.matcher(div.toString());
-            if (isInfo.find()) {
+            if (isInfo.find() && classOnly) {
                 Pattern getIdAndTitle = Pattern.compile(".*<strong>(.*)&nbsp;(\\d+) (.*)</strong>.*");
                 //selectInfo's group1 should be the courseID and group2 is the title
                 Matcher selectIdAndTitle = getIdAndTitle.matcher(div.toString());
-
 
                 if (selectIdAndTitle.find()) {
                     Elements pElems = div.select("p");
@@ -91,8 +94,12 @@ public class CourseInfo {
 
         Elements divElems = subjDoc.select("div");
         for (Element div : divElems) {
+            //the boolean below is because for some reason other div tags
+            // were matching, even though they DIDNT start with <div class="courseblock"
+            // I have no idea why the regex would allow that but whatever
+            boolean classOnly = div.toString().charAt(12) == 'c';
             Matcher isInfo = getCourseInfo.matcher(div.toString());
-            if (isInfo.find()) {
+            if (isInfo.find() && classOnly) {
                 Pattern getIdAndTitle = Pattern.compile(".*<strong>(.*)&nbsp;(\\d+) (.*)</strong>.*");
                 //selectInfo's group1 should be the courseID and group2 is the title
                 Matcher selectIdAndTitle = getIdAndTitle.matcher(div.toString());
@@ -123,6 +130,7 @@ public class CourseInfo {
                                 for (Element a : p.select("a")) {
                                     Matcher matchPrereqs = getPrereqPElem.matcher(a.toString());
                                     if (matchPrereqs.find()) {
+
                                         String pre = matchPrereqs.group(1);
                                         c.addPrereq(pre);
                                     }

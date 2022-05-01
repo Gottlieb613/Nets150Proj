@@ -11,7 +11,7 @@ public class CourseInfoTest {
         }
 
 
-        Course cis121 = CourseInfo.getCourseObj("cis", "CIS 120");
+        Course cis121 = CourseInfo.getCourseObj("cis", "CIS 099");
         System.out.println(cis121 + ":\n\t" + cis121.getDescription());
         System.out.println("\tprereqs: " + cis121.getPrereqs());
     }
