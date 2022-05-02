@@ -97,8 +97,8 @@ public class VectorSpaceModelTester {
         if (!providedCourse) {
             JOptionPane.showMessageDialog(frame, "Beep Bop.. " +
                     "The Top  Courses In The  " + departmentListing.toUpperCase() + " department that" +
-                    " are the most similar to the query,   " + result +
-                    ", \n" + " are: " + "\n" + displayString);
+                    " are the most similar to the query\n\t\"" + result +
+                    "\" \n" + " are: " + "\n" + displayString);
         }
         else{
             JOptionPane.showMessageDialog(frame, "Beep Bop.. " +

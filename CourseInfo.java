@@ -44,13 +44,18 @@ public class CourseInfo {
                     String title = selectIdAndTitle.group(3);
                     Course c = new Course(id, title);
 
+
+
                     //adding DESCRIPTION to c Course object
-                    Pattern getDescr = Pattern.compile(".*courseblockextra noindent\">(.*)</p>.*");
-                    Matcher matchDescr = getDescr.matcher(pElems.get(1).toString());
-                    if (matchDescr.find()) {
-                        String description = matchDescr.group(1);
-                        c.addDescription(description);
-                    }
+                    String description = pElems.get(1).text();
+                    c.addDescription(description);
+
+//                    Pattern getDescr = Pattern.compile(".*courseblockextra noindent\">(.*)</p>.*");
+//                    Matcher matchDescr = getDescr.matcher(pElems.get(1).toString());
+//                    if (matchDescr.find()) {
+//                        String description = matchDescr.group(1);
+//                        c.addDescription(description);
+//                    }
 
                     //adding PREREQS to c Course object
                     Pattern prereqElement = Pattern.compile(
@@ -128,12 +133,15 @@ public class CourseInfo {
                         // but that would require reworking the below code
                         // so i'll get to it later
                         //adding DESCRIPTION to c Course object
-                        Pattern getDescr = Pattern.compile(".*courseblockextra noindent\">(.*)</p>.*");
-                        Matcher matchDescr = getDescr.matcher(pElems.get(1).toString());
-                        if (matchDescr.find()) {
-                            String description = matchDescr.group(1);
-                            c.addDescription(description);
-                        }
+                        String description = pElems.get(1).text();
+                        c.addDescription(description);
+
+//                        Pattern getDescr = Pattern.compile(".*courseblockextra noindent\">(.*)</p>.*");
+//                        Matcher matchDescr = getDescr.matcher(pElems.get(1).toString());
+//                        if (matchDescr.find()) {
+//                            String description = matchDescr.group(1);
+//                            c.addDescription(description);
+//                        }
 
                         //adding PREREQS to c Course object
                         Pattern prereqElement = Pattern.compile(
