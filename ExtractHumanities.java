@@ -17,7 +17,6 @@ public class ExtractHumanities {
         /*
         Q. Which subjects count towards valid humanities and social science breath?
             --> Print a list of all K's in the map.
-            Method implementing this = getAllValidHumanities()
 
         Q.Which subjects have limited number of classes that count towards social science and humanities?
             --> For this we can traverse through the map and check which k's have non-empty v's
@@ -58,7 +57,7 @@ public class ExtractHumanities {
     }
 
     /**
-     * Method to webscrape the humanities webpage and fill the humanities map
+     * Method to web-scrape the humanities webpage and fill the humanities map
      */
     private void fillHumanities(){
         try {

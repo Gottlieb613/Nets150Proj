@@ -5,14 +5,8 @@ import java.io.*;
 import java.io.FileWriter;
 import java.util.*;
 
-
-
-/**
- * the tester class.
- * @author swapneel
- */
+/** the tester class.*/
 public class VectorSpaceModelTester {
-
 
     public void retrieveTopListings (String departmentListing, String result, boolean providedCourse){
         JFrame frame = new JFrame();
@@ -33,7 +27,6 @@ public class VectorSpaceModelTester {
         Document queryCourseInput =  new Document("./Classes/classDescription.txt");
         documentsArrayList.add(queryCourseInput);
         documentNames.add(result);
-
 
 
         //add all the descriptions of the courses in the department
@@ -57,9 +50,6 @@ public class VectorSpaceModelTester {
             }
         }
 
-
-
-        //
         TreeMap< Double, String> mapFromCourseToSimilarity = new TreeMap<>();
 
         Corpus corpus = new Corpus(documentsArrayList);
@@ -71,7 +61,7 @@ public class VectorSpaceModelTester {
             System.out.println(vectorSpace.cosineSimilarity(queryCourseInput, doc));
 
             //put the values to the tree map
-            mapFromCourseToSimilarity.put( vectorSpace.cosineSimilarity(queryCourseInput, doc), name);
+            mapFromCourseToSimilarity.put(vectorSpace.cosineSimilarity(queryCourseInput, doc), name);
         }
 
         Set<Double> values = mapFromCourseToSimilarity.keySet();
@@ -89,10 +79,6 @@ public class VectorSpaceModelTester {
                         ";" + " " + valuesToSort.get(i);
             }
         }
-
-
-
-
 
         if (!providedCourse) {
             JOptionPane.showMessageDialog(frame, "Beep Bop.. " +

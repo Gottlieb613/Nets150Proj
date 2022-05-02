@@ -183,17 +183,37 @@ public class CourseInfo {
         String courseTitle = "";
         try {
             doc = Jsoup.connect(url).get();
+            Pattern yesCourseTitle = Pattern.compile("^(.*?)\\s\\(");
+            String temp = doc.getElementsByClass("page-title").text();
+            Matcher check = yesCourseTitle.matcher(temp);
+            if (check.find()){
+                courseTitle = check.group(1);
+            }
         } catch (IOException e) {
             System.out.println("URL connection failed, given url = " + url);
             return null;
         }
-        Pattern yesCourseTitle = Pattern.compile("^(.*?)\\s\\(");
-        String temp = doc.getElementsByClass("page-title").text();
-        Matcher check = yesCourseTitle.matcher(temp);
-        if (check.find()){
-            courseTitle = check.group(1);
-        }
         //System.out.println(courseTitle);
         return courseTitle;
+    }
+
+    public static String getCourseCode (String departmentCode, String courseTitle){
+        Document doc ;
+        String url = "https://catalog.upenn.edu/courses/" + departmentCode.toLowerCase();
+        String courseCode = "";
+        try{
+            doc = Jsoup.connect(url).get();
+            Pattern courseNumberPattern = Pattern.compile("[0-9]+");
+            String temp = doc.getElementsContainingOwnText(courseTitle).text();
+            Matcher check = courseNumberPattern.matcher(temp);
+            if (check.find()){
+                courseTitle = check.group(0);
+                courseCode = departmentCode + " " + courseTitle;
+            }
+        } catch (IOException e){
+            System.out.println("Connection failed with url = " + url);
+        }
+        System.out.println(courseCode);
+        return courseCode;
     }
 }

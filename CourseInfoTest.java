@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class CourseInfoTest {
 
     public static void main(String[] args) {
-        ArrayList<Course> cisCourses = CourseInfo.getAllCoursesInSubject("cis");
+        ArrayList<Course> cisCourses = CourseInfo.getAllCoursesInSubject("meam");
         for (Course c : cisCourses) {
             System.out.println(c + ":\n\t" + c.getDescription());
             System.out.println("\tprereqs: " + c.getPrereqs());

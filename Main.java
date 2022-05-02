@@ -22,7 +22,7 @@ public class Main {
                 null,
                 null,
                 "Node A");
-        JOptionPane.showMessageDialog(frame, userName + ", Welcome to the UPenn CIS Course Catalog " +
+        JOptionPane.showMessageDialog(frame, userName + ", Welcome to the UPenn Course Catalog " +
                 "Info Center!\n" + "\n" +
                 "Created by Ethan Eisenberg, Charlie Gottlieb, and Hussain Zaidi\n" +
 
@@ -144,8 +144,6 @@ public class Main {
 
         Course course = CourseInfo.getCourseObj(id);
         if (course != null) {
-
-
             if (course.getPrereqs().size() == 0) {
                 JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is: " + course.getTitle() +
                         "\nIts description is:\n\t" + course.getDescriptionNewlines() +

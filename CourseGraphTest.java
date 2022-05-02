@@ -9,12 +9,13 @@ public class CourseGraphTest {
 
 //        System.out.println(c.coursesInDept("CIS"));
 
-//        ExtractHumanities eh = new ExtractHumanities();
+        ExtractHumanities eh = new ExtractHumanities();
 //        eh.printGivenList(eh.getAllValidHumanities(), "");
 //        eh.printGivenList(eh.getRestrictedHumanities(), "Following subjects have restrictions and not all classes in this subject " +
 //                "\nwill count towards social sciences or humanities credit");
 //        System.out.println("\n" + eh.getValidHumanityGivenSubject("CIMS"));
-        
+//        System.out.println(eh.isHumanityValid("LGST", "240"));
+        CourseInfo.getCourseCode("CIS", " Analysis of Algorithms");
 
     }
 }
