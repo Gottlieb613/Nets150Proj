@@ -32,6 +32,24 @@ class Course {
         return this.description;
     }
 
+    //this will return a string
+    public String getDescriptionNewlines() {
+        int wordsPerLine = 15;
+        String descriptionLines = "";
+        String[] newlineArray = this.description.split(" ");
+        for (int i = 0; i < newlineArray.length; i++) {
+            if (i == newlineArray.length - 1) {
+                descriptionLines += newlineArray[i];
+            }
+            else if (i % wordsPerLine != wordsPerLine - 1) {
+                descriptionLines += newlineArray[i] + " ";
+            } else {
+                descriptionLines += newlineArray[i] + "\n";
+            }
+        }
+        return descriptionLines;
+    }
+
     public ArrayList<String> getPrereqs() {
         return this.prereqs;
     }
