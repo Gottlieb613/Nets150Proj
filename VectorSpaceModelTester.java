@@ -49,8 +49,7 @@ public class VectorSpaceModelTester {
             String departmentListing = "";
             while(!untilFound) {
                 JOptionPane.showMessageDialog(frame, "Please enter the " +
-                        " course code  within the department you just selected " +
-                        "that you want to receive similar courses for! ");
+                        " course code that you want to receive similar courses for! ");
                 String result = (String) JOptionPane.showInputDialog(
                         frame,
                         "Enter the Course Code",
