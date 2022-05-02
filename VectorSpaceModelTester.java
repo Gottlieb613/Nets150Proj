@@ -44,10 +44,20 @@ public class VectorSpaceModelTester {
         );
 
         if (n == 0){
-            boolean untilFound = false;
-            Course selectedCourse = null;
-            String departmentListing = "";
-            while(!untilFound) {
+
+            //Retrieve the department that the user inputs
+            JOptionPane.showMessageDialog(frame, "First, please enter the department code that you want to " +
+                    "receive recommendations for!");
+            String departmentListing = (String)JOptionPane.showInputDialog(
+                    frame,
+                    "Enter the  Department Category",
+                    "Recommendation",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "cis");
+            JOptionPane.showMessageDialog(frame, "You selected the " + departmentListing.toUpperCase()
+                    + " department");
                 JOptionPane.showMessageDialog(frame, "Please enter the " +
                         " course code that you want to receive similar courses for! ");
                 String result = (String) JOptionPane.showInputDialog(
@@ -60,17 +70,8 @@ public class VectorSpaceModelTester {
                         "CIS 099"
                 );
 
-
                 //assume for now that they entered a code that is cis
-               selectedCourse = CourseInfo.getCourseObj(result);
-                if(selectedCourse == null){
-                    JOptionPane.showMessageDialog(frame, "This course is not valid!");
-                }
-                else{
-                    untilFound = true;
-                }
-            }
-
+            Course  selectedCourse = CourseInfo.getCourseObj(result);
             JOptionPane.showMessageDialog(frame, "We will now receive recommendations for: " + " \n" +
                     selectedCourse.getTitle());
             ArrayList<Course> coursesInDepartment = courseInfo.getAllCoursesInSubject(departmentListing.toLowerCase());
@@ -140,8 +141,10 @@ public class VectorSpaceModelTester {
 
             String displayString = "";
             for (int i = 0; i < 5; i++){
-                displayString +=  "\n" + (i + 1) + ". " + mapFromCourseToSimilarity.get(valuesToSort.get(i)) +
-                     ";" +  " " + valuesToSort.get(i);
+                if (valuesToSort.size() > i) {
+                    displayString += "\n" + (i + 1) + ". " + mapFromCourseToSimilarity.get(valuesToSort.get(i)) +
+                            ";" + " " + valuesToSort.get(i);
+                }
             }
 
 
