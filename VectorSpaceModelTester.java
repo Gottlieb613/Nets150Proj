@@ -144,20 +144,32 @@ public class VectorSpaceModelTester {
                     "cis");
             JOptionPane.showMessageDialog(frame, "You selected the " + departmentListing.toUpperCase()
                     + " department");
-            JOptionPane.showMessageDialog(frame, "Please enter the " +
-                    " course code that you want to receive similar courses for! ");
-            String result = (String) JOptionPane.showInputDialog(
-                    frame,
-                    "Enter the Course Code",
-                    "Recommendation",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
-                    "NETS 150"
-            );
 
-            //assume for now that they entered a code that is cis
-            Course selectedCourse = CourseInfo.getCourseObj(result);
+            boolean selectedProperCourse = false;
+            Course selectedCourse =  null;
+            while (!selectedProperCourse) {
+                JOptionPane.showMessageDialog(frame, "Please enter the " +
+                        " course code that you want to receive similar courses for! ");
+                String result = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Enter the Course Code",
+                        "Recommendation",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "NETS 150"
+                );
+
+                //assume for now that they entered a code that is cis
+                 selectedCourse = CourseInfo.getCourseObj(result);
+                 if (selectedCourse!= null){
+                     selectedProperCourse = true;
+                 }
+                 else{
+                     JOptionPane.showMessageDialog(frame, "Sorry that is an invalid course.  " +
+                             "Please try again!");
+                 }
+            }
             JOptionPane.showMessageDialog(frame, "We will now receive recommendations for: " + " \n" +
                     selectedCourse.getTitle());
             retrieveTopListings(departmentListing, selectedCourse.getDescription(), true);
