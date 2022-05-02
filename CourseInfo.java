@@ -214,6 +214,6 @@ public class CourseInfo {
             System.out.println("Connection failed with url = " + url);
         }
         System.out.println(courseCode);
-        return courseCode;
+        return courseCode.toUpperCase();
     }
 }

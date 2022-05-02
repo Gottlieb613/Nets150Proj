@@ -33,7 +33,14 @@ public class VectorSpaceModelTester {
         for (Course c: coursesInDepartment){
             /*only add courses that have a different description (we don't want to recommend courses
             the user has already provided */
+
+
+
+            //check through all the document names and make sure they are not the same
+
+
             if (!c.getDescription().equals(result)) {
+
                 //Write the course query (based on the code to a new file)
                 try {
                     //relative path to write to a file that is not specified
@@ -48,6 +55,7 @@ public class VectorSpaceModelTester {
                 documentsArrayList.add(add);
                 documentNames.add(c.getTitle());
             }
+
         }
 
         TreeMap< Double, String> mapFromCourseToSimilarity = new TreeMap<>();
@@ -75,8 +83,10 @@ public class VectorSpaceModelTester {
         String displayString = "";
         for (int i = 0; i < 5; i++){
             if (i < valuesToSort.size()) {
-                displayString += "\n" + (i + 1) + ". " + mapFromCourseToSimilarity.get(valuesToSort.get(i)) +
-                        ";" + " " + valuesToSort.get(i);
+                String courseTitle = mapFromCourseToSimilarity.get(valuesToSort.get(i));
+                displayString += "\n" + (i + 1) + ". " +
+                       courseInfo.getCourseCode(departmentListing, courseTitle)  +  ": " + courseTitle
+                        + ";" + "   Percent Similarity: " +  String.format("%.2f%n",((valuesToSort.get(i)) * 100));
             }
         }
 
@@ -143,7 +153,7 @@ public class VectorSpaceModelTester {
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     null,
-                    "CIS 099"
+                    "NETS 150"
             );
 
             //assume for now that they entered a code that is cis
