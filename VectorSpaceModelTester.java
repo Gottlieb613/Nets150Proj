@@ -48,20 +48,7 @@ public class VectorSpaceModelTester {
             Course selectedCourse = null;
             String departmentListing = "";
             while(!untilFound) {
-                JOptionPane.showMessageDialog(frame, "Please enter the department code that you want to " +
-                        "receive recommendations for!");
-                departmentListing = (String) JOptionPane.showInputDialog(
-                        frame,
-                        "Enter the  Department Category",
-                        "Recommendation",
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        null,
-                        "cis");
-                JOptionPane.showMessageDialog(frame, "You selected the " + departmentListing.toUpperCase()
-                        + " department");
-
-                JOptionPane.showMessageDialog(frame, "Now, please enter the " +
+                JOptionPane.showMessageDialog(frame, "Please enter the " +
                         " course code  within the department you just selected " +
                         "that you want to receive similar courses for! ");
                 String result = (String) JOptionPane.showInputDialog(
@@ -76,7 +63,7 @@ public class VectorSpaceModelTester {
 
 
                 //assume for now that they entered a code that is cis
-               selectedCourse = CourseInfo.getCourseObj(departmentListing.toLowerCase(), result);
+               selectedCourse = CourseInfo.getCourseObj(result);
                 if(selectedCourse == null){
                     JOptionPane.showMessageDialog(frame, "This course is not valid!");
                 }
@@ -273,8 +260,8 @@ public class VectorSpaceModelTester {
 
             JOptionPane.showMessageDialog(frame, "Beep Bop.. " +
                     "The Top  Courses In The  " + departmentListing.toUpperCase() + " department that" +
-                    " are the most similar to the query " + result +
-                    " \n" + " are: " + "\n" + displayString);
+                    " are the most similar to the query,  " +    result   +
+                    ", \n" + " are: " + "\n" + displayString);
 
         }
     }
