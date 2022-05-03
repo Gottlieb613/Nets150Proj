@@ -216,4 +216,46 @@ public class CourseInfo {
         System.out.println(courseCode);
         return courseCode.toUpperCase();
     }
+
+    /**
+     * Get all courses in a subject subjCode that have the prerequisite courseCode
+     * @param subjCode the subject to search through
+     * @param courseCode the course to search for
+     * Note: if you want to use the course's subject, then can simply not input a subjCode parameter
+     * which will use the method below this one
+     */
+    public static ArrayList<String> getPostreqs(String courseCode, String subjCode) {
+        String courseID = courseCode.toUpperCase();
+
+        ArrayList<String> postreqs = new ArrayList<>();
+        ArrayList<Course> allCourses = getAllCoursesInSubject(subjCode);
+
+        if (allCourses == null) {
+            System.out.println("Error: Cannot find that subject");
+            return null;
+        }
+
+        for (Course c : allCourses) {
+            for (String pre : c.getPrereqs()) {
+                if (pre.equals(courseID)) {
+                    postreqs.add(c.getID());
+                }
+            }
+        }
+
+        return postreqs;
+    }
+
+    public static ArrayList<String> getPostreqs(String courseCode) {
+        String courseID = courseCode.toUpperCase();
+        Pattern validCourse = Pattern.compile("(\\w+) \\d+");
+        Matcher validCourseMatch = validCourse.matcher(courseID);
+        if (!validCourseMatch.find()) {
+            System.out.println("Invalid course ID");
+            return null;
+        }
+        String subjCode = validCourseMatch.group(1);
+
+        return getPostreqs(courseCode, subjCode);
+    }
 }
