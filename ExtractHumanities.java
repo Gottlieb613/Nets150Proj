@@ -126,22 +126,21 @@ public class ExtractHumanities {
     }
 
     /**
-     * Prints any given list, useful for other methods
+     * Prints any given list, useful Testing
      * @param s List to be printed
-     * @param Message Special Message to be printed before the list is printed
+     * @return String of result
      */
-    public void printGivenList(List<String> s, String Message){
+    public String printGivenList(List<String> s){
         int counter = 0;
-        if (!Message.equals("")){
-            System.out.println(Message);
-        }
+        String result = "";
         for (String e: s){
             if (counter%10==0){
-                System.out.println("");
+                result += "\n";
             }
-                System.out.print(counter+1 + "-" + e + ", ");
+               result += counter+1 + "-" + e + ", ";
             counter++;
         }
+        return result;
     }
 
     /**
@@ -177,13 +176,13 @@ public class ExtractHumanities {
      */
     public String getValidHumanityGivenSubject(String givenSubject) {
         String answer = "";
+        String subjectProvided = givenSubject.toUpperCase();
         for (Map.Entry<String,String> e : humanities.entrySet()) {
-            if (e.getKey().equals(givenSubject)){
+            if (e.getKey().equals(subjectProvided)){
                 if (e.getValue().equals("")){
-                    answer = "All classes in " + givenSubject + " are valid humanities";
+                    answer = "All classes in " + subjectProvided + " are valid humanities";
                 } else {
-                    answer = "Following courses in this subject will count towards SS or H credit\n"
-                            +givenSubject +": " + e.getValue();
+                    answer = subjectProvided +" courses: " + e.getValue();
                 }
             }
         }
@@ -202,49 +201,72 @@ public class ExtractHumanities {
      */
     public String isHumanityValid (String subjectCode, String courseCode){
         String answer = "";
-        switch (subjectCode) {
-            case "ECON":
-                if (courseCode.equals("104")) {
-                    answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
-                } else {
-                    answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students" +
-                            "\n **IF it's not a statistics, probability or Math course**";
-                }
-                break;
-            case "VLST":
-                if (courseCode.equals("209")) {
-                    answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
-                } else {
-                    answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students";
-                }
-                break;
-            case "PHIL":
-                if (courseCode.equals("005") || courseCode.equals("006")) {
-                    answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
-                } else {
-                    answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students" +
-                            "\n **IF it's not a LOGIC course**";
-                }
-                break;
-            default:
-                for (Map.Entry<String, String> e : humanities.entrySet()) {
-                    if (e.getKey().equals(subjectCode)) {
-                        if (e.getValue().contains(courseCode)) {
-                            answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students";
-                        } else if (e.getValue().isEmpty()) {
-                            answer = "Yes, " + subjectCode + " " + courseCode + " is valid, since all courses in this subject are valid";
-                        } else {
-                            answer = getValidHumanityGivenSubject(subjectCode);
+        if (getAllValidHumanities().contains(subjectCode)){
+            switch (subjectCode) {
+                case "ECON":
+                    if (courseCode.equals("104")) {
+                        answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
+                    } else {
+                        answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students" +
+                                "\n **IF it's not a statistics, probability or Math course**";
+                    }
+                    break;
+                case "VLST":
+                    if (courseCode.equals("209")) {
+                        answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
+                    } else {
+                        answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students";
+                    }
+                    break;
+                case "CIS":
+                    if (courseCode.equals("106")) {
+                        answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students";
+                    } else {
+                        answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
+                    }
+                    break;
+                case "PHIL":
+                    if (courseCode.equals("005") || courseCode.equals("006")) {
+                        answer = "No, " + subjectCode + " " + courseCode + " is not a valid humanity course for seas students";
+                    } else {
+                        answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students" +
+                                "\n **IF it's not a LOGIC course**";
+                    }
+                    break;
+                default:
+                    for (Map.Entry<String, String> e : humanities.entrySet()) {
+                        if (e.getKey().equals(subjectCode)) {
+                            if (e.getValue().contains(courseCode)) {
+                                answer = "Yes, " + subjectCode + " " + courseCode + " is a valid humanity course for seas students";
+                            } else if (e.getValue().isEmpty()) {
+                                answer = "Yes, " + subjectCode + " " + courseCode + " is valid, since all courses in this subject are valid";
+                            } else {
+                                answer = "Maybe Yes, Maybe Not, Following courses are valid for "+ subjectCode + " according to SEAS humanities website "
+                                        + getValidHumanityGivenSubject(subjectCode);
+                            }
                         }
                     }
-                }
-                break;
+                    break;
+            }
+            if (answer.equals("")){
+                answer = "Sorry, this is not a valid humanity subject code. Please enter a valid " +
+                        "subject code \n i.e. ANTH, EAS, DSGN etc";
+            }
+
+        } else {
+            answer = "Unfortunately, " + subjectCode + " has no valid SS or H courses for SEAS students";
         }
-        if (answer.equals("")){
-            System.out.println("Sorry, this is not a valid humanity subject code. Please enter a valid " +
-                    "subject code \n i.e. ANTH, EAS, DSGN etc");
-        }
+
         return answer;
+    }
+
+    /**
+     * Given a course code i.e CIS 110, splits them into CIS, and 110.
+     * @param combinedString course code
+     * @return array of subject code and course code separated
+     */
+    public String[] getCourseCodeAndSubjectCode(String combinedString){
+        return combinedString.split(" ");
     }
 
 }

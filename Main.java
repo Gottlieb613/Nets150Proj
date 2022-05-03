@@ -105,6 +105,7 @@ public class Main {
             askQuestions();
         } else {
             JOptionPane.showMessageDialog(frame, "Thank you for using our system. Have a nice day!");
+            System.exit(0);
         }
     }
 
@@ -248,6 +249,87 @@ public class Main {
     }
 
     static void question4() {
+        ExtractHumanities eh = new ExtractHumanities();
+        String[] question4Set = new String[]{"1", "2", "3", "4"};
+        JFrame frame = new JFrame();
+
+        int choiceQ4 = JOptionPane.showOptionDialog(
+                frame,
+                "Please choose the correct option for you: " +
+                        "\n 1. Print all subjects that have courses that count towards SS or H"
+                        + "\n 2. Which subjects have limited number of valid SS or H courses?" +
+                        "\n 3. Find a valid SS or H course for a specific subject i.e. ANTH, CIS" +
+                        "\n 4. Find if a course counts as SS or H",
+
+                "Humanities information",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                question4Set,
+                question4Set[3]
+        );
+        if (choiceQ4==0){
+            String subjectList = eh.printGivenList(eh.getAllValidHumanities());
+                    JOptionPane.showMessageDialog(frame,"List of all valid humanities subject codes is below\n\t" +
+                            subjectList);
+
+        }else if (choiceQ4==1){
+            String subjectList = eh.printGivenList(eh.getRestrictedHumanities());
+            JOptionPane.showMessageDialog(frame,"List of all subjects with restricted SS or H courses\n\t" +
+                    subjectList);
+
+        }else if (choiceQ4==2){
+            String id = "";
+            String answer = "";
+            boolean correctCourse = false;
+            while (!correctCourse) {
+                id = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Type the humanities subject code to check i.e. DSGN, EAS, PHIL ",
+                        "Check valid courses given a humanity subject",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "DSGN");
+
+
+                answer = eh.getValidHumanityGivenSubject(id);
+                if (answer!=null) {
+                    correctCourse = true;
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "Sorry, that subject does not have any courses valid for SS or H");
+                }
+            }
+            JOptionPane.showMessageDialog(frame, "Following information is provided for valid courses in this subject\n"+
+                    answer);
+
+        }else if (choiceQ4==3){
+            String id = "";
+            String answer = "";
+            boolean correctCourse = false;
+            while (!correctCourse) {
+                id = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Type the course code to check if its a valid humanity i.e. DSGN 233, NURS 313",
+                        "Check if the course counts towards SS or H credit",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "DSGN 236");
+                String [] arr = eh.getCourseCodeAndSubjectCode(id);
+                answer = eh.isHumanityValid(arr[0], arr[1]);
+
+                if (answer!=null) {
+                    correctCourse = true;
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "Sorry, that subject does not have any courses valid for SS or H");
+                }
+            }
+            JOptionPane.showMessageDialog(frame, "This is what I found for this course\n"+
+                    answer);
+        }
 
     }
 
