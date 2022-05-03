@@ -16,14 +16,19 @@ public class CourseInfoTest {
 //        System.out.println("\tprereqs: " + cis121.getPrereqs());
 
 
-        for (String s : CourseInfo.getPostreqs("CIS 240")) {
-            System.out.println(s);
-        }
+//        for (String s : CourseInfo.getPostreqs("CIS 240")) {
+//            System.out.println(s);
+//        }
+//
+//        System.out.println();
+//
+//        for (String s : CourseInfo.getPostreqs("CIS 110", "MEAM")) {
+//            System.out.println(s);
+//        }
 
-        System.out.println();
 
-        for (String s : CourseInfo.getPostreqs("CIS 110", "MEAM")) {
-            System.out.println(s);
-        }
+
+        CisElectivesAttempt2 te = new CisElectivesAttempt2();
+
     }
 }

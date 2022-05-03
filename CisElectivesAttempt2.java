@@ -41,7 +41,7 @@ public class CisElectivesAttempt2 {
             Document electiveDocument = Jsoup.connect(url).get();
             Elements contentForElectives = electiveDocument.getElementsByTag("td");
             Pattern yesPattern = Pattern.compile("<td bgcolor=\"green\">YES</td>");
-            Pattern coursePattern = Pattern.compile("<span class=\"tooltip\">(.+) (\\d+)<span.*</span></span>");
+            Pattern coursePattern = Pattern.compile(".*<span class=\"tooltiptext\">formerly (.+) (\\d+)</span></span>");
             Pattern courseDescription = Pattern.compile("</span> (.*?)<br> ", Pattern.CASE_INSENSITIVE);
 
             int index = 0;

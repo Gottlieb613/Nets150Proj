@@ -3,11 +3,12 @@ import jdk.nashorn.internal.scripts.JO;
 import javax.swing.*;
 import java.util.Scanner;
 import java.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main {
-    private static Scanner scan;
 
     public static void main(String[] args) {
-        scan = new Scanner(System.in);
         open();
 
     }
@@ -182,6 +183,67 @@ public class Main {
 
 
     static void question3() {
+        //TODO: allow for 2 questions
+        // 1. Check if a given course is a valid TE
+        // 2. We print all subjects that have a TE, they choose one and it outputs all courses in that subj that are TEs
+
+        CisElectivesAttempt2 te = new CisElectivesAttempt2();
+
+        String[] question3Set = new String[]{"2", "1"};
+        JFrame frame = new JFrame();
+        int choiceQ3 = JOptionPane.showOptionDialog(
+                frame,
+                "Please choose the correct option for you: " +
+                        "\n 1. Check if a particular course is a valid CIS Tech Elective"
+                        + "\n 2. See which courses in a given subject are valid Tech Electives",
+
+                "Retrieve Valid Tech Electives",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                question3Set,
+                question3Set[1]
+        );
+
+        if (choiceQ3 == 1){
+            Course course = null;
+            String id = "";
+            boolean correctCourse = false;
+            while (!correctCourse) {
+                id = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Type the course ID (i.e. NETS 150):",
+                        "Check Tech Elective status",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "NETS 150");
+
+
+                course = CourseInfo.getCourseObj(id);
+                if (course!=null) {
+                    correctCourse = true;
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "Sorry, that is an incorrect course. Please enter it again!");
+                }
+            }
+
+            String subjCode = course.getSubject();
+
+            String isTechElec = "not currently a valid CIS tech elective ";
+
+            for (Course elec : te.coursesInDept(subjCode)) {
+                if (course.getID().equals(elec.getID())) {
+                    isTechElec = "a valid CIS tech elective!";
+                    break;
+                }
+            }
+
+            JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is " + isTechElec);
+
+        }
+
 
     }
 

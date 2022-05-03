@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Course {
     private final String id;
@@ -56,5 +58,16 @@ class Course {
 
     public String toString() {
         return this.id + ": " + this.title;
+    }
+
+    public String getSubject() {
+        String courseID = getID().toUpperCase();
+        Pattern validCourse = Pattern.compile("(\\w+) \\d+");
+        Matcher validCourseMatch = validCourse.matcher(courseID);
+        if (validCourseMatch.find()) {
+            return validCourseMatch.group(1);
+        }
+        System.out.println("No subject found, weirdly :(");
+        return "";
     }
 }
