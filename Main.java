@@ -1,6 +1,7 @@
 import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.*;
 import java.util.regex.Matcher;
@@ -13,8 +14,16 @@ public class Main {
 
     }
 
+    public static void exit(JFrame frame){
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
     static void open() {
         JFrame frame = new JFrame();
+        exit(frame);
+
         String userName = (String) JOptionPane.showInputDialog(
                 frame,
                 "Enter your name",
@@ -206,6 +215,7 @@ public class Main {
                 question3Set[1]
         );
 
+        //Check if given course is TE
         if (choiceQ3 == 1){
             Course course = null;
             String id = "";
@@ -243,9 +253,51 @@ public class Main {
 
             JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is " + isTechElec);
 
+        //Ask for TE in subject
+        } else {
+
+            String subjectsVertical = "";
+            for (String c : te.getElecMap().keySet()) {
+                subjectsVertical += c + "\n";
+            }
+            JOptionPane.showMessageDialog(frame, "Here is the list of subjects with valid Tech Electives:\n" +
+                    subjectsVertical);
+
+            String subj = null;
+            boolean repeat = true;
+            while (repeat) {
+                subj = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Type the subject code (i.e. NETS):",
+                        "Check subject for tech electives",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "NETS");
+                subj = subj.toUpperCase();
+                if (te.getElecMap().containsKey(subj)) {
+                    repeat = false;
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Sorry, that subject " +
+                            "does not have any Tech Electives. " +
+                            "Please enter again!");
+                }
+            }
+
+            ArrayList<Course> electives = te.getElecMap().get(subj);
+            ArrayList<String> electiveNames = new ArrayList<>();
+            for (Course c : electives) {
+                electiveNames.add(c.getID() + ": " + c.getTitle());
+            }
+
+            String electivesVertical = "";
+            for (String c : electiveNames) {
+                electivesVertical += c + "\n";
+            }
+
+            JOptionPane.showMessageDialog(frame, "Here are courses in " + subj + " with valid Tech Electives:\n" +
+                    electivesVertical);
         }
-
-
     }
 
     static void question4() {

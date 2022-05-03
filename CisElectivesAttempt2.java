@@ -42,6 +42,7 @@ public class CisElectivesAttempt2 {
             Elements contentForElectives = electiveDocument.getElementsByTag("td");
             Pattern yesPattern = Pattern.compile("<td bgcolor=\"green\">YES</td>");
             Pattern coursePattern = Pattern.compile(".*<span class=\"tooltiptext\">formerly (.+) (\\d+)</span></span>");
+
             Pattern courseDescription = Pattern.compile("</span> (.*?)<br> ", Pattern.CASE_INSENSITIVE);
 
             int index = 0;
@@ -82,9 +83,22 @@ public class CisElectivesAttempt2 {
                             electives.add(courseCode+"-"+electivesDescriptions.get(index));
 
                             Course elec = new Course(courseCode, electivesDescriptions.get(index));
+
+                            //this loop is to rule out those annoying edge cases
+                            // where a course is labeled as
+                            // "previously X, Y" intead of the normal "previously X"
+                            // i do it by just checking if there is a comma
+                            boolean hasComma = false;
+                            for (int idx = 0; idx < elec.getID().length(); idx++) {
+                                if (elec.getID().charAt(idx) == ',') {
+                                    hasComma = true;
+                                    break;
+                                }
+                            }
+
                             if (elecMap.containsKey(department)) {
                                 elecMap.get(department).add(elec);
-                            } else {
+                            } else if (!hasComma) {
                                 elecMap.put(department, new ArrayList<>());
                                 elecMap.get(department).add(elec);
                             }
@@ -112,6 +126,10 @@ public class CisElectivesAttempt2 {
             System.out.println(i + ": " + e);
             i++;
         }
+    }
+
+    public HashMap<String, ArrayList<Course>> getElecMap() {
+        return this.elecMap;
     }
 
 }
