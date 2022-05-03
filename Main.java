@@ -97,7 +97,7 @@ public class Main {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 yesNoSet,
-                yesNoSet[1]
+                yesNoSet[0]
         );
 
         if (again == 0) {
@@ -132,24 +132,43 @@ public class Main {
 //        String id = scan.nextLine();
 
         JFrame frame = new JFrame();
-        String id = (String) JOptionPane.showInputDialog(
-                frame,
-                "Type the course ID (i.e. NETS 150): ",
-                "Provide Subject Information",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                "NETS 150");
+        Course course = null;
+        String id = "";
+        boolean correctCourse = false;
+        while (!correctCourse) {
+            id = (String) JOptionPane.showInputDialog(
+                    frame,
+                    "Type the course ID (i.e. NETS 150): ",
+                    "Provide Subject Information",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "NETS 150");
 
 
-        Course course = CourseInfo.getCourseObj(id);
-        if (course != null) {
-            if (course.getPrereqs().size() == 0) {
-                JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is: " + course.getTitle() +
-                        "\nIts description is:\n\t" + course.getDescriptionNewlines() +
-                        "\n\n Further, there are no prerequisites. Get " +
-                        "ready to learn!");
-            }
+             course = CourseInfo.getCourseObj(id);
+             if (course!=null){
+                 correctCourse = true;
+             }
+             else{
+                 JOptionPane.showMessageDialog(frame, "Sorry, that is an incorrect course. Please enter it again!");
+             }
+        }
+
+        String prereqsString = "And its prerequisites are:\n\t" + course.getPrereqs();
+        if (course.getPrereqs().isEmpty()) {
+            prereqsString = "Further, there are no prerequisites. Get ready to learn!";
+        }
+
+        String postreqsString = "And it is a prerequisite for the follow courses:\n\t" + CourseInfo.getPostreqs(id);
+        if (CourseInfo.getPostreqs(course.getID()).isEmpty()) {
+            postreqsString = "Further, there are no courses that have it as a prerequisite. Get ready to learn!";
+        }
+
+        JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is: " + course.getTitle() +
+                "\nIts description is:\n\t" + course.getDescriptionNewlines() +
+                "\n\n" + prereqsString +
+                "\n\n" + postreqsString);
 
 
 ////            System.out.print("\n" + id.toUpperCase() + " is " + course.getTitle() +
@@ -159,17 +178,7 @@ public class Main {
 ////                System.out.println("No prerequisites");
 //                JOptionPane.showMessageDialog(frame, "Further, there are no prerequisites. Get " +
 //                        "ready to learn!");
-         else {
-            JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is: " + course.getTitle() +
-                    "\n\nIts description is:\n\t" + course.getDescriptionNewlines() +
-                    "\n\nAnd its prerequisites are:\n\t " + course.getPrereqs());
-//                JOptionPane.showMessageDialog(frame, "Here are the  prerequisites to note: \n" +
-//                        course.getPrereqs() );
-//                System.out.println(course.getPrereqs());
-        }
-    }
-
-}
+   }
 
 
     static void question3() {
