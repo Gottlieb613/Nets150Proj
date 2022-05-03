@@ -1,11 +1,16 @@
 import org.jsoup.Jsoup;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.regex.Pattern;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CisElectivesAttempt2 {
 
@@ -14,8 +19,8 @@ public class CisElectivesAttempt2 {
     private List<String>electivesDescriptions;
     private List<String> electives;
     private HashMap<String, ArrayList<Course>> elecMap;
-        //this is a map that connects a department string
-        //with an array of all the acceptable courses in it
+    //this is a map that connects a department string
+    //with an array of all the acceptable courses in it
 
     /**
      * Constructor for CisElectives

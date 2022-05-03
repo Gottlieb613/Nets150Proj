@@ -257,18 +257,25 @@ public class Main {
         } else {
 
             String subjectsVertical = "";
+            int i = 0;
             for (String c : te.getElecMap().keySet()) {
-                subjectsVertical += c + "\n";
+                if (i == te.getElecMap().keySet().size() - 1) {
+                    subjectsVertical += c;
+                } else if (i % 5 == 4) {
+                    subjectsVertical += c + "\n";
+                } else {
+                    subjectsVertical += c + ", ";
+                }
+                i++;
             }
-            JOptionPane.showMessageDialog(frame, "Here is the list of subjects with valid Tech Electives:\n" +
-                    subjectsVertical);
 
             String subj = null;
             boolean repeat = true;
             while (repeat) {
                 subj = (String) JOptionPane.showInputDialog(
                         frame,
-                        "Type the subject code (i.e. NETS):",
+                        "Here is the list of subjects that contain valid Tech Electives:\n" + subjectsVertical
+                        + "\n\nNow, type a Subject:",
                         "Check subject for tech electives",
                         JOptionPane.PLAIN_MESSAGE,
                         null,
@@ -279,7 +286,7 @@ public class Main {
                     repeat = false;
                 } else {
                     JOptionPane.showMessageDialog(frame, "Sorry, that subject " +
-                            "does not have any Tech Electives. " +
+                            "does not contain any Tech Electives. " +
                             "Please enter again!");
                 }
             }

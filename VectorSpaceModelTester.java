@@ -91,14 +91,14 @@ public class VectorSpaceModelTester {
         }
 
         if (!providedCourse) {
-            JOptionPane.showMessageDialog(frame, "Beep Bop.. " +
-                    "The Top  Courses In The  " + departmentListing.toUpperCase() + " department that" +
+            JOptionPane.showMessageDialog(frame, "Beep Boop.. " +
+                    "The Top Courses In The  " + departmentListing.toUpperCase() + " department that" +
                     " are the most similar to the query\n\t\"" + result +
                     "\" \n" + " are: " + "\n" + displayString);
         }
         else{
-            JOptionPane.showMessageDialog(frame, "Beep Bop.. " +
-                    "The Top  Courses In The  " + departmentListing.toUpperCase() + " department that" +
+            JOptionPane.showMessageDialog(frame, "Beep Boop.. " +
+                    "The Top Courses In The  " + departmentListing.toUpperCase() + " department that" +
                     " are the most similar to the provided course  "  +
                     "\n" + " are: " + "\n" + displayString);
         }
@@ -117,7 +117,7 @@ public class VectorSpaceModelTester {
 
         //would you want to filter by course code or course description
         JOptionPane.showMessageDialog(frame, "Welcome to Course Recommender! ");
-        String[] optionSet = new String[]{"Filter by Course Code", "Filter by Course Description"};
+        String[] optionSet = new String[]{"Filter by Course Code", "Filter by Query"};
         int n = JOptionPane.showOptionDialog(
                 frame,
                 "How do you want to receive your course recommendations?",
@@ -198,12 +198,12 @@ public class VectorSpaceModelTester {
             JOptionPane.showMessageDialog(frame, "Now, please enter text that matches your interests");
             String result = (String) JOptionPane.showInputDialog(
                     frame,
-                    "Enter the Course Description ",
-                    "Recommendation",
+                    "Enter the Query of search terms ",
+                    "Recommendation by Query",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     null,
-                    "Artificial Intelligence and  Machine Learning"
+                    "artificial intelligence machine computer game graph"
             );
 
             retrieveTopListings(departmentListing, result, false);
