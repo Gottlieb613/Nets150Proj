@@ -15,9 +15,7 @@ public class Main {
     }
 
     public static void exit(JFrame frame){
-        frame.pack();
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setVisible(true);
     }
 
     static void open() {
