@@ -30,13 +30,10 @@ public class Main {
         }
         else {
 
-            JOptionPane.showMessageDialog(frame, userName + ", Welcome to the UPenn Course Catalog " +
-                    "Info Center!\n" + "\n" +
+            JOptionPane.showMessageDialog(frame, userName + ", Welcome to the UPenn Course Information System" +
+                    "\n" + "\n" +
                     "Created by Ethan Eisenberg, Charlie Gottlieb, and Hussain Zaidi\n" +
-
                     " To begin, please choose a question");
-
-
             askQuestions();
         }
     }

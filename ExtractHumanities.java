@@ -134,8 +134,8 @@ public class ExtractHumanities {
         int counter = 0;
         String result = "";
         for (String e: s){
-            if (counter%10==0){
-                result += "\n";
+            if (counter%5==0){
+                result += "\n\n";
             }
                result += counter+1 + "-" + e + ", ";
             counter++;
