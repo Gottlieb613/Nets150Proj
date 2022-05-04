@@ -140,6 +140,8 @@ public class Main {
 
         if (title != null) {
             JOptionPane.showMessageDialog(frame, code.toUpperCase() + " refers to " + title);
+        } else {
+            JOptionPane.showMessageDialog(frame, code.toUpperCase() + " is not a valid subject code. Try again!");
         }
 
     }
