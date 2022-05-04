@@ -17,9 +17,6 @@ public class Main {
     static void open() {
         JFrame frame = new JFrame();
 
-
-
-
         String userName = (String) JOptionPane.showInputDialog(
                 frame,
                 "Enter your name",
@@ -148,10 +145,6 @@ public class Main {
             JOptionPane.showMessageDialog(frame, code.toUpperCase() + " refers to " + title);
         }
 
-
-
-
-
     }
 
     static void question2() {
@@ -205,11 +198,7 @@ public class Main {
 
 
     static void question3() {
-        //TODO: allow for 2 questions
-        // 1. Check if a given course is a valid TE
-        // 2. We print all subjects that have a TE, they choose one and it outputs all courses in that subj that are TEs
-
-        CisElectivesAttempt2 te = new CisElectivesAttempt2();
+        CisElectives te = new CisElectives();
 
         String[] question3Set = new String[]{"2", "1"};
         JFrame frame = new JFrame();
@@ -398,13 +387,13 @@ public class Main {
                 answer = eh.getValidHumanityGivenSubject(id);
                 if (answer!=null) {
                     correctCourse = true;
+                    JOptionPane.showMessageDialog(frame, "Following information is provided for valid courses in this subject\n"+
+                            answer);
                 }
                 else {
                     JOptionPane.showMessageDialog(frame, "Sorry, that subject does not have any courses valid for SS or H");
                 }
             }
-            JOptionPane.showMessageDialog(frame, "Following information is provided for valid courses in this subject\n"+
-                    answer);
 
         }else if (choiceQ4==3){
             String id = "";
@@ -430,13 +419,13 @@ public class Main {
 
                 if (answer!=null) {
                     correctCourse = true;
+                    JOptionPane.showMessageDialog(frame, "This is what I found for this course\n"+
+                            answer);
                 }
                 else {
                     JOptionPane.showMessageDialog(frame, "Sorry, that subject does not have any courses valid for SS or H");
                 }
             }
-            JOptionPane.showMessageDialog(frame, "This is what I found for this course\n"+
-                    answer);
         }
 
     }
@@ -445,6 +434,7 @@ public class Main {
 
         VectorSpaceModelTester test = new VectorSpaceModelTester();
         test.recommendationQuestion();
-
     }
+
+    //end of class
 }

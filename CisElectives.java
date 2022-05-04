@@ -12,7 +12,7 @@ import org.jsoup.select.Elements;
 import java.util.*;
 import java.util.regex.Matcher;
 
-public class CisElectivesAttempt2 {
+public class CisElectives {
 
     private String url;
     private Document currentDoc;
@@ -27,7 +27,7 @@ public class CisElectivesAttempt2 {
      * Automatically calls fillElectiveList() method
      * Assumes the cis url
      */
-    public CisElectivesAttempt2(){
+    public CisElectives(){
         url = "https://advising.cis.upenn.edu/tech-electives/";
         electivesDescriptions = new LinkedList<>();
         electives = new LinkedList<>();

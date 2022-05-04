@@ -187,8 +187,8 @@ public class ExtractHumanities {
             }
         }
         if (answer.equals("")){
-            System.out.println("Sorry, this is not a valid humanity subject code. Please enter a valid " +
-                    "subject code \n i.e. ANTH, EAS, DSGN etc");
+            answer = "Sorry, this subject does not have any valid SS or H courses. Please enter a valid " +
+                    "humanity subject code \n i.e. ANTH, EAS, DSGN, LGST, FOLK etc";
         }
         return answer;
     }
