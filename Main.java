@@ -200,7 +200,7 @@ public class Main {
                  correctCourse = true;
              }
              else{
-                 JOptionPane.showMessageDialog(frame, "Sorry, that is an incorrect course. Please enter it again!");
+                 JOptionPane.showMessageDialog(frame, "Sorry, that is an invalid course. Please enter it again!");
              }
         }
 
@@ -284,22 +284,27 @@ public class Main {
                     correctCourse = true;
                 }
                 else {
-                    JOptionPane.showMessageDialog(frame, "Sorry, that is an incorrect course. Please enter it again!");
+                    JOptionPane.showMessageDialog(frame, "Sorry, that is an invalid course. Please enter it again!");
                 }
             }
 
             String subjCode = course.getSubject();
 
-            String isTechElec = "not currently a valid CIS tech elective ";
+            if (!te.getElecMap().containsKey(subjCode)) {
+                JOptionPane.showMessageDialog(frame, subjCode + " does not contain any tech electives");
 
-            for (Course elec : te.coursesInDept(subjCode)) {
-                if (course.getID().equals(elec.getID())) {
-                    isTechElec = "a valid CIS tech elective!";
-                    break;
+            } else {
+                String isTechElec = "not currently a valid CIS tech elective ";
+
+                for (Course elec : te.coursesInDept(subjCode)) {
+                    if (course.getID().equals(elec.getID())) {
+                        isTechElec = "a valid CIS tech elective!";
+                        break;
+                    }
                 }
-            }
 
-            JOptionPane.showMessageDialog(frame, "\n" + id.toUpperCase() + " is " + isTechElec);
+                JOptionPane.showMessageDialog(frame, id.toUpperCase() + " is " + isTechElec);
+            }
 
         //Ask for TE in subject
         } else {
