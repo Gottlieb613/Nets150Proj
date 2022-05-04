@@ -204,6 +204,10 @@ public class VectorSpaceModelTester {
                     null,
                     null,
                     "cis");
+            if (departmentListing == null){
+                JOptionPane.showMessageDialog(frame, "Leaving!");
+                Main.askQuestions();
+            }
             JOptionPane.showMessageDialog(frame, "You selected the " + departmentListing.toUpperCase()
                     + " department");
 
