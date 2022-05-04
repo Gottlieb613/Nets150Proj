@@ -129,6 +129,11 @@ public class VectorSpaceModelTester {
                 optionSet[1]
         );
 
+        if (n == -1){
+            JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+            Main.askQuestions();
+        }
+
         if (n == 0) {
 
             //Retrieve the department that the user inputs
@@ -142,6 +147,10 @@ public class VectorSpaceModelTester {
                     null,
                     null,
                     "cis");
+            if (departmentListing == null){
+                    JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+                    Main.askQuestions();
+            }
             JOptionPane.showMessageDialog(frame, "You selected the " + departmentListing.toUpperCase()
                     + " department");
 
@@ -159,6 +168,10 @@ public class VectorSpaceModelTester {
                         null,
                         "NETS 150"
                 );
+
+                if (result == null){
+                    Main.askQuestions();
+                }
 
                 //assume for now that they entered a code that is cis
                  selectedCourse = CourseInfo.getCourseObj(result);
@@ -205,6 +218,9 @@ public class VectorSpaceModelTester {
                     null,
                     "artificial intelligence machine computer game graph"
             );
+            if (result == null){
+                Main.askQuestions();
+            }
 
             retrieveTopListings(departmentListing, result, false);
 

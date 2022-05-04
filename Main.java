@@ -14,13 +14,13 @@ public class Main {
 
     }
 
-    public static void exit(JFrame frame){
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-    }
+
 
     static void open() {
         JFrame frame = new JFrame();
-        exit(frame);
+
+
+
 
         String userName = (String) JOptionPane.showInputDialog(
                 frame,
@@ -30,14 +30,20 @@ public class Main {
                 null,
                 null,
                 "Node A");
-        JOptionPane.showMessageDialog(frame, userName + ", Welcome to the UPenn Course Catalog " +
-                "Info Center!\n" + "\n" +
-                "Created by Ethan Eisenberg, Charlie Gottlieb, and Hussain Zaidi\n" +
+        if (userName == null){
+            JOptionPane.showMessageDialog(frame, "Leaving. Have a great day!");
+        }
+        else {
 
-                " To begin, please choose a question");
+            JOptionPane.showMessageDialog(frame, userName + ", Welcome to the UPenn Course Catalog " +
+                    "Info Center!\n" + "\n" +
+                    "Created by Ethan Eisenberg, Charlie Gottlieb, and Hussain Zaidi\n" +
+
+                    " To begin, please choose a question");
 
 
-        askQuestions();
+            askQuestions();
+        }
     }
 
 
@@ -59,6 +65,12 @@ public class Main {
                 optionSet,
                 optionSet[4]
         );
+
+        if (choice == -1){
+            JOptionPane.showMessageDialog(frame, "Leaving. Thank you!");
+            System.exit(0);
+
+        }
 
 
 //        int choice = scan.nextInt();
@@ -94,6 +106,8 @@ public class Main {
         }
 //        System.out.println("\n\nAsk another question? (y/n)");
 //        String askAgain = scan.nextLine();
+
+
         String[] yesNoSet = new String[]{"Yes!", "No, thank you"};
 
         int again = JOptionPane.showOptionDialog(
@@ -108,6 +122,12 @@ public class Main {
                 yesNoSet[0]
         );
 
+
+        if (again == -1){
+            JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+            askQuestions();
+
+        }
         if (again == 0) {
             askQuestions();
         } else {
@@ -118,7 +138,7 @@ public class Main {
 
     static void question1() {
         JFrame frame = new JFrame();
-        String code = (String) JOptionPane.showInputDialog(
+        String code =  (String)JOptionPane.showInputDialog(
                 frame,
                 "Type the subject code: ",
                 "Provide Subject Information",
@@ -129,11 +149,25 @@ public class Main {
 
 //        System.out.print("Type the subject code: ");
 //        String code = scan.nextLine();
+
+
+       if (code==null){
+           JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+           askQuestions();
+
+       }
+
         String title = CourseInfo.getSubjectTitle(code);
+
         if (title != null) {
             JOptionPane.showMessageDialog(frame, code.toUpperCase() + " refers to " + title);
 //            System.out.println(code.toUpperCase() + " refers to " + title);
         }
+
+
+
+
+
     }
 
     static void question2() {
@@ -154,6 +188,12 @@ public class Main {
                     null,
                     "NETS 150");
 
+
+            if (id==null){
+                JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+                askQuestions();
+
+            }
 
              course = CourseInfo.getCourseObj(id);
              if (course!=null){
@@ -213,6 +253,12 @@ public class Main {
                 question3Set[1]
         );
 
+        if (choiceQ3 == -1){
+            JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+            askQuestions();
+
+        }
+
         //Check if given course is TE
         if (choiceQ3 == 1){
             Course course = null;
@@ -228,7 +274,11 @@ public class Main {
                         null,
                         "NETS 150");
 
+                if (id == null){
+                    JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+                    askQuestions();
 
+                }
                 course = CourseInfo.getCourseObj(id);
                 if (course!=null) {
                     correctCourse = true;
@@ -279,6 +329,11 @@ public class Main {
                         null,
                         null,
                         "NETS");
+                if (subj == null){
+                        JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+                        askQuestions();
+
+                }
                 subj = subj.toUpperCase();
                 if (te.getElecMap().containsKey(subj)) {
                     repeat = false;
@@ -325,6 +380,12 @@ public class Main {
                 question4Set,
                 question4Set[3]
         );
+
+        if (choiceQ4 == -1){
+            JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+            askQuestions();
+
+        }
         if (choiceQ4==0){
             String subjectList = eh.printGivenList(eh.getAllValidHumanities());
                     JOptionPane.showMessageDialog(frame,"List of all valid humanities subject codes is below\n\t" +
@@ -350,6 +411,11 @@ public class Main {
                         "DSGN");
 
 
+                if (id == null){
+                        JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+                        askQuestions();
+                }
+
                 answer = eh.getValidHumanityGivenSubject(id);
                 if (answer!=null) {
                     correctCourse = true;
@@ -374,6 +440,12 @@ public class Main {
                         null,
                         null,
                         "DSGN 236");
+
+                if (id == null){
+                        JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
+                        askQuestions();
+
+                }
                 String [] arr = eh.getCourseCodeAndSubjectCode(id);
                 answer = eh.isHumanityValid(arr[0], arr[1]);
 
