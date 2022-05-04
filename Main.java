@@ -14,8 +14,6 @@ public class Main {
 
     }
 
-
-
     static void open() {
         JFrame frame = new JFrame();
 
@@ -72,11 +70,6 @@ public class Main {
 
         }
 
-
-//        int choice = scan.nextInt();
-//        scan.nextLine(); //this is to bring the scanner carriage to end of line for next scan
-
-
         if (choice < 0 || choice > 4) {
             JOptionPane.showMessageDialog(frame, "That is not a valid option, please choose again");
 
@@ -104,9 +97,6 @@ public class Main {
                 }
             }
         }
-//        System.out.println("\n\nAsk another question? (y/n)");
-//        String askAgain = scan.nextLine();
-
 
         String[] yesNoSet = new String[]{"Yes!", "No, thank you"};
 
@@ -147,21 +137,15 @@ public class Main {
                 null,
                 "NETS");
 
-//        System.out.print("Type the subject code: ");
-//        String code = scan.nextLine();
-
-
        if (code==null){
            JOptionPane.showMessageDialog(frame, "Leaving. Calc-you-later!");
            askQuestions();
-
        }
 
         String title = CourseInfo.getSubjectTitle(code);
 
         if (title != null) {
             JOptionPane.showMessageDialog(frame, code.toUpperCase() + " refers to " + title);
-//            System.out.println(code.toUpperCase() + " refers to " + title);
         }
 
 
@@ -171,8 +155,6 @@ public class Main {
     }
 
     static void question2() {
-//        System.out.print("Type the course ID (i.e. CIS 110): ");
-//        String id = scan.nextLine();
 
         JFrame frame = new JFrame();
         Course course = null;
@@ -219,14 +201,6 @@ public class Main {
                 "\n\n" + prereqsString +
                 "\n\n" + postreqsString);
 
-
-////            System.out.print("\n" + id.toUpperCase() + " is " + course.getTitle() +
-////            "\nIts description is:\n\t" + course.getDescriptionNewlines() +
-////            "\nAnd its prerequisites are:\n\t");
-//            if (course.getPrereqs().size() == 0) {
-////                System.out.println("No prerequisites");
-//                JOptionPane.showMessageDialog(frame, "Further, there are no prerequisites. Get " +
-//                        "ready to learn!");
    }
 
 
